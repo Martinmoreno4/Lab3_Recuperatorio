@@ -1,0 +1,311 @@
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Recuperatorio Lab3 Martin Moreno</title>
+    </head>
+    <body>
+
+        <div class="container-Datos"> 
+            <h3>Form Datos</h2>
+        </div>
+
+        <div class="container-ABM"> 
+            <fieldset>
+                <h3>Form ABM</h2>
+                <label for="ID">ID:</label>
+                <input name="ID" id="ID" />
+                <label for="Modelo">Modelo:</label>
+                <input name="Modelo" id="Modelo" />
+                <label for="Año Fabricacion">Año Fabricacion:</label>
+                <input name="Año Fabricacion" id="Año Fabricacion" />
+                <label for="Velocidad Maxima">Velocidad Maxima:</label>
+                <input name="Velocidad Maxima" id="Velocidad Maxima" />
+                <label for="Tipo">Tipo:</label>
+                <select id="Tipo" name="Tipo">
+                    <option value="Aereo">Aereo</option>
+                    <option value="Terrestre">Terrestre</option>
+                </select>
+                <label for="Altura Maxima">Altura Maxima:</label>
+                <input name="Altura Maxima" id="Altura Maxima" />
+                <label for="Autonomia">Autonomia:</label>
+                <input name="Autonomia" id="Autonomia" />
+                <label for="Cantidad Puertas">Cantidad Puertas:</label>
+                <input name="Cantidad Puertas" id="Cantidad Puertas" />
+                <label for="Cantidad Ruedas">Cantidad Ruedas:</label>
+                <input name="Cantidad Ruedas" id="Cantidad Ruedas" />
+                <input type="submit" value="Agregar">
+                <input type="submit" value="Modificar">
+                <input type="submit" value="Eliminar">
+                <input type="submit" value="Cancelar">
+            </fieldset>
+        </div>
+
+        <p id="demo"> </p>
+
+        <style>
+            .container-Datos 
+            { 
+                height: auto;
+                width: 1000px;
+                border: solid black 3px;
+                margin-bottom: 5px;
+            }
+
+            .container-ABM 
+            {
+                margin-right: auto;
+                margin-left: auto;
+                height: auto;
+                width: 600px;
+                border: solid black 3px;
+                margin-top: 0px;
+                padding: 0px;
+
+            }
+
+            label 
+            {
+                font-family: Georgia, "Times New Roman", Times, serif;
+                font-size: 18px;
+                color: #333;
+                height: 20px;
+                margin-top: 10px;
+                text-align: right;
+                clear: both;
+                float:left;
+                margin-right:15px;
+            }
+
+            input 
+            {
+                height: 20px;
+                width: 300px;
+                border: 1px solid #000;
+                margin-top: 10px;
+                float: left;
+            }
+
+            select
+            {
+                height: 20px;
+                width: 80px;
+                border: 1px solid #000;
+                margin-top: 10px;
+                float: left;
+            }
+        </style>
+
+        <script type="text/javascript">
+            class Vehiculo
+            {
+                id=0;
+                modelo="";
+                añoFabricacion=0;
+                velocidadMaxima=0;
+
+                constructor(i, m, a, v)
+                {
+                    this.id= i || 10;
+                    this.modelo= m || "modelo";
+                    this.añoFabricacion= a || 2010;
+                    this.velocidadMaxima= v || 25;
+                }
+
+                //Getters
+
+                getId()
+                {
+                    return this.id;
+                }
+
+                getModelo()
+                {
+                    return this.modelo;
+                }
+
+                getAñoFabricacion()
+                {
+                    return this.añoFabricacion;
+                }
+
+                getVelocidadMaxima()
+                {
+                    return this.velocidadMaxima;
+                }
+
+                //Setters
+
+                setId(_id)
+                {
+                    this.id = _id;
+                }
+
+                setModelo(_modelo)
+                {
+                    this.modelo = _modelo;
+                }
+
+                setAñoFabricacion(_añoFabricacion)
+                {
+                    this.añoFabricacion = _añoFabricacion;
+                }
+
+                setVelocidadMaxima(_velocidadMaxima)
+                {
+                    this.velocidadMaxima = _velocidadMaxima;
+                }
+            }
+
+            class Terrestre extends Vehiculo
+            {
+                cantidadRuedas=1;
+                cantidadPuertas=1;
+
+                constructor(i, m, a, v, cr, cp)
+                {
+                    super(i, m, a, v);
+                    this.cantidadRuedas=cr || 4;
+                    this.cantidadPuertas=cp || 4;
+                }
+
+                //Getters
+
+                getCantidadRuedas()
+                {
+                    return this.cantidadRuedas;
+                }
+
+                getCantidadPuertas()
+                {
+                    return this.cantidadPuertas;
+                }
+
+                //Setters
+
+                setCantidadRuedas(_cantidadRuedas)
+                {
+                    this.cantidadRuedas = _cantidadRuedas;
+                }
+
+                setCantidadPuertas(_cantidadPuertas)
+                {
+                    this.cantidadPuertas = _cantidadPuertas;
+                }
+
+                fromJson(json)
+                {
+                    this.id = json.id;
+                    this.modelo = json.modelo;
+                    this.añoFabricacion = json.anoFab;
+                    this.velocidadMaxima = json.velMax;
+                    this.cantidadRuedas = json.cantPue;
+                    this.cantidadPuertas = json.cantRue;
+                }
+
+                toString()
+                {
+                    const ans = ' ' + 
+                    this.id + ' ' +
+                    this.modelo + ' ' +
+                    this.añoFabricacion + ' ' +
+                    this.velocidadMaxima + ' ' +
+                    this.cantidadRuedas + ' ' + 
+                    this.cantidadPuertas+ '<br>';
+                    return ans;
+                }
+
+            }
+
+            class Aereo extends Vehiculo
+            {
+                alturaMaxima=1;
+                autonomia=1;
+
+                constructor(i, m, a, v, am, au)
+                {
+                    super(i, m, a, v);
+                    this.alturaMaxima=am || 20;
+                    this.autonomia=au || 5;
+                }
+
+                //Getters
+
+                getAlturaMaxima()
+                {
+                    return this.alturaMaxima;
+                }
+
+                getAutonomia()
+                {
+                    return this.autonomia;
+                }
+
+                //Setters
+
+                setAlturaMaxima(_alturaMaxima)
+                {
+                    this.alturaMaxima = _alturaMaxima;
+                }
+
+                setAutonomia(_autonomia)
+                {
+                    this.autonomia = _autonomia;
+                }
+
+                fromJson(json)
+                {
+                    this.id = json.id;
+                    this.modelo = json.modelo;
+                    this.añoFabricacion = json.anoFab;
+                    this.velocidadMaxima = json.velMax;
+                    this.alturaMaxima = json.altMax;
+                    this.autonomia = json.autonomia;
+                }
+
+                toString()
+                {
+                    const ans = ' ' + 
+                    this.id + ' ' + 
+                    this.modelo + ' ' +
+                    this.añoFabricacion + ' ' + 
+                    this.velocidadMaxima + ' ' + 
+                    this.alturaMaxima + ' ' + 
+                    this.autonomia+ '<br>';
+                    return ans;
+                }
+            }
+
+            var listaArray = '[{"id":14, "modelo":"Ferrari F100", "anoFab":1998, "velMax":400, "cantPue":2, "cantRue":4},{"id":51, "modelo":"DodgeViper", "anoFab":1991, "velMax":266, "cantPue":2, "cantRue":4},{"id":67, "modelo":"Boeing CH-47 Chinook","anoFab":1962, "velMax":302, "altMax":6, "autonomia":1200},{"id":666, "modelo":"Aprilia RSV 1000 R","anoFab":2004, "velMax":280, "cantPue":0, "cantRue":2},{"id":872, "modelo":"Boeing 747-400", "anoFab":1989,"velMax":988, "altMax":13, "autonomia":13450},{"id":742, "modelo":"Cessna CH-1 SkyhookR", "anoFab":1953,"velMax":174, "altMax":3, "autonomia":870}]';
+            var vehiculosAyT= [];
+            vehiculosAyT = JSON.parse(listaArray);
+            var vehiculosList= [];
+
+            for (var i = 0; i < vehiculosAyT.length; i++)
+            {
+                if(vehiculosAyT[i].hasOwnProperty("altMax"))
+                {
+                    
+                    vehiculo = new Aereo();
+                    vehiculo.fromJson(vehiculosAyT[i]);
+                    vehiculosList.push(vehiculo);
+                }
+                else if(vehiculosAyT[i].hasOwnProperty("cantRue"))
+                {
+                    
+                    vehiculo = new Terrestre();
+                    vehiculo.fromJson(vehiculosAyT[i]);
+                    vehiculosList.push(vehiculo);
+                }
+            };
+        </script> 
+
+        <script>
+            document.getElementById("demo").innerHTML = vehiculosList.toString();
+            console.log(vehiculosAyT);
+        </script>        
+
+    </body>
+
+</html>
