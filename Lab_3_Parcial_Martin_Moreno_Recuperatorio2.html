@@ -1,0 +1,518 @@
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Recuperatorio Lab3 Martin Moreno</title>
+    </head>
+    <body>
+
+        <div id="container-Datos"> 
+            <fieldset>
+                <h3>Form Datos</h3>
+                    <label class="ABMlabel" for="Tipo">Filtrar por:</label>
+                    <select id="Tipo" name="tipoDatos" onchange="showDiv()">
+                        <option value="todos">Todos</option>
+                        <option value="terrestre">Terrestre</option>
+                        <option value="aereo">Aereo</option>
+                    </select>
+                    <br>
+                    <br>
+
+                    <form id="checkboxes">
+                        <label >
+                            <input id="id" type="checkbox" checked="checked"/>id
+                        </label>
+                        <label >
+                            <input id="modelo" type="checkbox" checked="checked"/>modelo
+                        </label>
+                        <label >
+                            <input id="añoFab" type="checkbox" checked="checked"/>año fab
+                        </label>
+                        <label >
+                            <input id="velMax" type="checkbox" checked="checked"/>vel max
+                        </label>
+                        <label >
+                            <input id="alMax" type="checkbox" checked="checked"/>al max
+                        </label>
+                        <label >
+                            <input id="autonomia" type="checkbox" checked="checked"/>autonomia
+                        </label>
+                        <label >
+                            <input id="cantPue" type="checkbox" checked="checked"/>cant pue
+                        </label>
+                        <label >
+                            <input id="cantRue" type="checkbox" checked="checked"/>cant rue
+                        </label>
+                    </form>
+
+                    <label class="ABMlabel" for="EdadPromedio">Promedio velocidad maxima:</label>
+                    <input class="ABM" name="EdadPromedio" id="EdadPromedio" />
+                    <input type="submit" class="Boton" value="Calcular" style="display: inline;">
+
+                    <br><br>
+
+                    <table id="myTable" style="width:100%">
+                        <tr id="CabezeraTable">
+                            <td><input type="submit" class="tdButton" value="id"></td>
+                            <td><input type="submit" class="tdButton" value="modelo"></td>
+                            <td><input type="submit" class="tdButton" value="año fab"></td>
+                            <td><input type="submit" class="tdButton" value="vel max"></td>
+                            <td><input type="submit" class="tdButton" value="al max"></td>
+                            <td><input type="submit" class="tdButton" value="autonomia"></td>
+                            <td><input type="submit" class="tdButton" value="cant pue"></td>
+                            <td><input type="submit" class="tdButton" value="cant rue"></td>
+                        </tr>
+
+                      </table>
+        
+                      <input type="submit" class="Boton" value="Agregar" onclick="showABM()">
+            </fieldset>
+        </div>
+
+        <div id="container-ABM" style="display: none;">
+            <fieldset>
+                <h3>Form ABM</h3>
+                <label class="ABMlabel" for="ID">ID:</label>
+                <input class="ABM" name="ID" id="ID" />
+                <label class="ABMlabel" for="Modelo">Modelo:</label>
+                <input class="ABM" name="Modelo" id="Modelo" />
+                <label class="ABMlabel" for="Año Fabricacion">Año Fabricacion:</label>
+                <input class="ABM" name="Año Fabricacion" id="Año Fabricacion" />
+                <label class="ABMlabel" for="Velocidad Maxima">Velocidad Maxima:</label>
+                <input class="ABM" name="Velocidad Maxima" id="Velocidad Maxima" />
+                <label class="ABMlabel" for="Tipo">Tipo:</label>
+                <select id="Tipo" name="tipo" onchange="changeABM(this.value)">
+                    <option value="aereo">Aereo</option>
+                    <option value="terrestre">Terrestre</option>
+                </select>
+
+                <form id="aereo" class="optionHidden">
+                    <label class="ABMlabel" for="Altura Maxima">Altura Maxima:</label>
+                    <input class="ABM" name="Altura Maxima" id="Altura Maxima" />
+                    <label class="ABMlabel" for="Autonomia">Autonomia:</label>
+                    <input class="ABM" name="Autonomia" id="Autonomia" />
+                </form>
+
+                <div id="terrestre" class="optionHidden">
+                    <label class="ABMlabel" for="Cantidad Puertas">Cantidad Puertas:</label>
+                    <input class="ABM" name="Cantidad Puertas" id="Cantidad Puertas" />
+                    <label class="ABMlabel" for="Cantidad Ruedas">Cantidad Ruedas:</label>
+                    <input class="ABM" name="Cantidad Ruedas" id="Cantidad Ruedas" />
+                </div>
+
+                <input type="submit" class="Boton" value="Agregar">
+                <input type="submit" class="Boton" value="Modificar">
+                <input type="submit" class="Boton" value="Eliminar">
+                <input type="submit" class="Boton" value="Cancelar" onclick="showABM()">
+            </fieldset>
+        </div>
+
+        <p id="demo"> </p>
+
+        <style>
+
+            .optionHidden
+            {
+                display: none;
+            }
+
+
+            table, td 
+            {
+                border: 1px solid black;
+                vertical-align: middle;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            #container-Datos 
+            { 
+                margin-right: auto;
+                margin-left: auto;
+                height: auto;
+                width: 850px;
+                border: solid black 3px;
+                margin-bottom: 5px;
+                margin-top: 0px;
+                padding: 0px;
+            }
+
+            #container-ABM 
+            {
+                margin-right: auto;
+                margin-left: auto;
+                height: auto;
+                width: 550px;
+                border: solid black 3px;
+                margin-top: 0px;
+                padding: 0px;
+
+            }
+            
+
+            .Boton
+            {
+                height: 20px;
+                width: 100px;
+                border: 1px solid #000;
+                margin-top: 10px;
+                float: left;
+                margin-left: 10px;
+            }
+
+            label 
+            {
+                font-family: Georgia, "Times New Roman", Times, serif;
+                font-size: 18px;
+                color: #333;
+                height: 20px;
+                margin-top: 10px;
+                text-align: right;
+                margin-right:15px;
+                clear: both;
+            }
+
+            .ABMlabel
+            {
+                float:left;
+            }
+
+            .tdButton
+            {
+                width: 100%;
+                display : table-cell;
+                vertical-align: middle;
+            }
+
+            .ABM 
+            {
+                height: 20px;
+                width: 300px;
+                border: 1px solid #000;
+                margin-top: 10px;
+                float: left;
+            }
+
+            select
+            {
+                height: 20px;
+                width: 80px;
+                border: 1px solid #000;
+                margin-top: 10px;
+                float: left;
+            }
+
+            [type="checkbox"]
+            {
+                vertical-align:middle;
+            }
+            
+        </style>
+
+        <script type="text/javascript">
+
+            class Vehiculo
+            {
+                id=0;
+                modelo="";
+                añoFabricacion=0;
+                velocidadMaxima=0;
+
+                constructor(i, m, a, v)
+                {
+                    this.id= i || 10;
+                    this.modelo= m || "modelo";
+                    this.añoFabricacion= a || 2010;
+                    this.velocidadMaxima= v || 25;
+                }
+
+                //Getters
+
+                getId()
+                {
+                    return this.id;
+                }
+
+                getModelo()
+                {
+                    return this.modelo;
+                }
+
+                getAñoFabricacion()
+                {
+                    return this.añoFabricacion;
+                }
+
+                getVelocidadMaxima()
+                {
+                    return this.velocidadMaxima;
+                }
+
+                //Setters
+
+                setId(_id)
+                {
+                    this.id = _id;
+                }
+
+                setModelo(_modelo)
+                {
+                    this.modelo = _modelo;
+                }
+
+                setAñoFabricacion(_añoFabricacion)
+                {
+                    this.añoFabricacion = _añoFabricacion;
+                }
+
+                setVelocidadMaxima(_velocidadMaxima)
+                {
+                    this.velocidadMaxima = _velocidadMaxima;
+                }
+            }
+
+            class Terrestre extends Vehiculo
+            {
+                cantidadRuedas=1;
+                cantidadPuertas=1;
+
+                constructor(i, m, a, v, cr, cp)
+                {
+                    super(i, m, a, v);
+                    this.cantidadRuedas=cr || 4;
+                    this.cantidadPuertas=cp || 4;
+                }
+
+                //Getters
+
+                getCantidadRuedas()
+                {
+                    return this.cantidadRuedas;
+                }
+
+                getCantidadPuertas()
+                {
+                    return this.cantidadPuertas;
+                }
+
+                //Setters
+
+                setCantidadRuedas(_cantidadRuedas)
+                {
+                    this.cantidadRuedas = _cantidadRuedas;
+                }
+
+                setCantidadPuertas(_cantidadPuertas)
+                {
+                    this.cantidadPuertas = _cantidadPuertas;
+                }
+
+                fromJson(json)
+                {
+                    this.id = json.id;
+                    this.modelo = json.modelo;
+                    this.añoFabricacion = json.anoFab;
+                    this.velocidadMaxima = json.velMax;
+                    this.cantidadRuedas = json.cantPue;
+                    this.cantidadPuertas = json.cantRue;
+                }
+
+                toString()
+                {
+                    const ans = ' ' + 
+                    this.id + ' ' +
+                    this.modelo + ' ' +
+                    this.añoFabricacion + ' ' +
+                    this.velocidadMaxima + ' ' +
+                    this.cantidadRuedas + ' ' + 
+                    this.cantidadPuertas+ '<br>';
+                    return ans;
+                }
+
+            }
+
+            class Aereo extends Vehiculo
+            {
+                alturaMaxima=1;
+                autonomia=1;
+
+                constructor(i, m, a, v, am, au)
+                {
+                    super(i, m, a, v);
+                    this.alturaMaxima=am || 20;
+                    this.autonomia=au || 5;
+                }
+
+                //Getters
+
+                getAlturaMaxima()
+                {
+                    return this.alturaMaxima;
+                }
+
+                getAutonomia()
+                {
+                    return this.autonomia;
+                }
+
+                //Setters
+
+                setAlturaMaxima(_alturaMaxima)
+                {
+                    this.alturaMaxima = _alturaMaxima;
+                }
+
+                setAutonomia(_autonomia)
+                {
+                    this.autonomia = _autonomia;
+                }
+
+                fromJson(json)
+                {
+                    this.id = json.id;
+                    this.modelo = json.modelo;
+                    this.añoFabricacion = json.anoFab;
+                    this.velocidadMaxima = json.velMax;
+                    this.alturaMaxima = json.altMax;
+                    this.autonomia = json.autonomia;
+                }
+
+                toString()
+                {
+                    const ans = ' ' + 
+                    this.id + ' ' + 
+                    this.modelo + ' ' +
+                    this.añoFabricacion + ' ' + 
+                    this.velocidadMaxima + ' ' + 
+                    this.alturaMaxima + ' ' + 
+                    this.autonomia+ '<br>';
+                    return ans;
+                }
+            }
+
+            var listaArray = '[{"id":14, "modelo":"Ferrari F100", "anoFab":1998, "velMax":400, "cantPue":2, "cantRue":4},{"id":51, "modelo":"DodgeViper", "anoFab":1991, "velMax":266, "cantPue":2, "cantRue":4},{"id":67, "modelo":"Boeing CH-47 Chinook","anoFab":1962, "velMax":302, "altMax":6, "autonomia":1200},{"id":666, "modelo":"Aprilia RSV 1000 R","anoFab":2004, "velMax":280, "cantPue":0, "cantRue":2},{"id":872, "modelo":"Boeing 747-400", "anoFab":1989,"velMax":988, "altMax":13, "autonomia":13450},{"id":742, "modelo":"Cessna CH-1 SkyhookR", "anoFab":1953,"velMax":174, "altMax":3, "autonomia":870}]';
+            var vehiculosAyT= [];
+            vehiculosAyT = JSON.parse(listaArray);
+            var vehiculosList= [];
+
+            for (var i = 0; i < vehiculosAyT.length; i++)
+            {
+                if(vehiculosAyT[i].hasOwnProperty("altMax"))
+                {
+                    
+                    vehiculo = new Aereo();
+                    vehiculo.fromJson(vehiculosAyT[i]);
+                    vehiculosList.push(vehiculo);
+                }
+                else if(vehiculosAyT[i].hasOwnProperty("cantRue"))
+                {
+                    
+                    vehiculo = new Terrestre();
+                    vehiculo.fromJson(vehiculosAyT[i]);
+                    vehiculosList.push(vehiculo);
+                }
+            };
+
+            function displayTable(Vehiculo) 
+            {
+                // get the table to add rows to
+                var table = document.getElementById('myTable');
+
+                // cycle through the array for each of the presidents
+                for (var i = 0; i < Vehiculo.length; ++i) {
+                    // keep a reference to an individual president object
+                    var VehiculoAyT = Vehiculo[i];
+
+                    // create a row element to append cells to
+                    var row = document.createElement('tr');
+
+                    // properties of the array elements
+                    var properties = ['id', 'modelo', 'añoFabricacion', 'velocidadMaxima', 'alturaMaxima', 'autonomia'];
+
+                    // append each one of them to the row in question, in order
+                    for (var j = 0; j < properties.length; ++j) {
+                    // create new data cell for names
+                    var cell = document.createElement('td');
+
+                    // set name of property using bracket notation (properties[j] is a string,
+                    // which can be used to access properties of president)
+                    cell.innerHTML = president[properties[j]];
+
+                    // add to end of the row
+                    row.appendChild(cell);
+                    }
+
+                    // add new row to table
+                    table.appendChild(row);
+                }
+                }
+        </script> 
+
+        <script>
+            document.getElementById("demo").innerHTML = vehiculosList.toString();
+            //console.log(vehiculosAyT);
+        </script>       
+        
+        <script>
+            function changeABM(sel) 
+            {                
+                var x = document.getElementById("terrestre");
+                var y = document.getElementById("aereo");
+                if (x.id === sel) {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                }
+                 else if(y.id === sel) 
+                {
+                    x.style.display = "none";
+                    y.style.display = "block";
+                }
+            }
+
+            function showABM() 
+            {
+                var x = document.getElementById("container-ABM");
+                var y = document.getElementById("container-Datos");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                } else {
+                    x.style.display = "none";
+                    y.style.display = "block";
+                }
+            }
+
+            function validarForm() 
+            {
+                let x = document.forms["myForm"]["fname"].value;
+                if (x == "") 
+                {
+                    alert("se dejó un casillero vacío, por favor completar datos");
+                    return false;
+                }
+            }
+
+            function validarFormID() 
+            {
+                let x = document.forms["myForm"]["fname"].value;
+                if (x == "") 
+                {
+                    alert("se dejó un casillero vacío, por favor completar datos");
+                    return false;
+                }
+
+                if (x < 0) 
+                {
+                    alert("el ID debe ser mayor a 0");
+                    return false;
+                }
+            }
+
+
+        </script>
+
+
+    </body>
+
+</html>
